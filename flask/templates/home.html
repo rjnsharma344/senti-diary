@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style media="screen">
+
+        h1{
+            font-style: monospace;
+            color:brown;
+            font-size: 60px;
+            margin-left:30px;
+            text-align: center;
+        }
+        p{
+            font-style: monospace;
+            font-size: 30px;
+        }
+        .page-loader{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #E74C3C;
+        }
+        .load-spinner{
+            background-image: url(/static/grid.svg);
+            margin: 50vh auto;
+            width: 80px;
+            height: 80px;
+
+        }
+    </style>
+</head>
+  <body>
+  {% extends "layout.html" %}
+{% block content %}
+<div class="page-loader">
+    <div class="load-spinner">
+    </div>
+</div>
+<div class="homebg">
+<div class="bg"></div>
+  <div class="home">
+    <h1>Mood Tracker</h1>
+    <p>A Mood Tracker project done by ArjunSharma I and Meenakshi Sundaram S</p>
+  </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}" charset="utf-8"></script>
+<script src="{{ url_for('static', filename='js/script.js')}}" charset="utf-8"></script>
+{% endblock %}
+  </body>
+</html>

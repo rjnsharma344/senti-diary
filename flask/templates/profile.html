@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style media="screen">
+    h1{
+        font-family: monospace;
+    }
+    .float{
+      position:fixed;
+      width:60px;
+      height:60px;
+      bottom:40px;
+      right:40px;
+      background-color:#0C9;
+      color:#FFF;
+      border-radius:50px;
+      text-align:center;
+      box-shadow: 2px 2px 3px #999;
+    }
+.addnotes .addfriend{
+    display: none;
+    position:fixed;
+    text-align: center;
+    border-radius: 20px;
+    top: 50%;
+    left: 50%;
+    width:30em;
+    height:18em;
+    margin-top: -9em; /*set to a negative number 1/2 of your height*/
+    margin-left: -15em; /*set to a negative number 1/2 of your width*/
+    border: 1px solid #ccc;
+    background-color: #f3f3f3;
+    width: 350px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+input[type=submit] {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  cursor: pointer;
+}
+input[type=text], select, textarea{
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 100%;
+    background: #fff;
+    margin-bottom: 1%;
+    border: 2px solid #cbc;
+    font-family: monospace;
+}
+.friends{
+    float: left;
+}
+p{
+    text-shadow: 2px;
+    font-size: 20px;
+    font-family: monospace;
+    padding: 12px 20px;
+    margin: 20px;
+}
+.card ul {
+  background: #3399ff;
+  padding: 20px;
+}
+.card ul li {
+  background: #cce5ff;
+  padding: 5px;
+  margin-left: 40px;
+
+}
+.cancel:hover{
+    cursor: pointer;
+}
+    </style>
+    <script type="text/javascript">
+    function myfun() {
+      var x = document.getElementById("addnotes");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+    function addfrnd() {
+      var x = document.getElementById("addfriend");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+    </script>
+</head>
+    <body>
+    	{% extends "profilelayout.html" %}
+{% block content %}
+<div class="card">
+    <h1>Hi! {{username}}</h1>
+	<h1>My notes:</h1>
+    <ul>
+    {% for data in data %}
+    <li>{{data.note}} -- {{data.score}}</li>
+    {% endfor %}
+   </ul>
+</div>
+<img onclick="myfun()" class="float" src="{{ url_for('static', filename='pad.png')}}" alt="add notes" width="20" height="20">
+<div class="addnotes" id="addnotes">
+    <form class="notes" action="http://localhost:5000/addnotes/" method="post">
+        <div class="cancel">
+        <img src="{{url_for('static', filename='cancel.png')}}" alt="cancel" id='cancel' onclick="myfun()" width="30" height="30"></div><br>
+        <p>Notes <br><input type = "text" name = "notes" /></p>
+        <input onclick="myfun()" type="submit" name="submit" value="submit">
+    </form>
+</div>
+<div class="friends">
+    <a href="#" onclick="addfrnd()">Add friends(+)</a>
+</div>
+    <div class="addfriend" id="addfriend">
+        <form class="friend" action="http://localhost:5000/addfriend/" method="post">
+            <input type="text" name="friend" value="" placeholder="Enter your friend id."/>
+            <input type="submit" name="submit" value="submit" onclick="addfrnd()">
+        </form>
+    </div>
+
+     {% endblock %}
+    </body>
+</html>

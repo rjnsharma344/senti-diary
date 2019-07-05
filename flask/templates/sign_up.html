@@ -1,0 +1,198 @@
+<html>
+<head>
+<style media="screen">
+h1{
+    font-family: monospace;
+}
+p{
+    font-family: monospace;
+}
+body{
+    background-image: url("/static/bg2.jpg");
+    height: 100%;
+    background-position: center;
+    background-size: 100% auto;
+}
+
+input[type=text], select, textarea{
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 60%;
+    background: #fff;
+    margin-bottom: 1%;
+    border: 2px solid #cbc;
+    color: #985;
+    font: 95% Arial, Helvetica, sans-serif;
+}
+
+input[type=text]:focus {
+    width: 65%;
+    border: 3px solid #555;
+}
+
+input[type=number], select, textarea{
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 60%;
+    background: #fff;
+    margin-bottom: 4%;
+    border: 1px solid #ccc;
+    padding: 3%;
+    color: #555;
+    font: 95% Arial, Helvetica, sans-serif;
+}
+
+input[type=number]:focus {
+    width: 65%;
+    border: 3px solid #555;
+}
+
+input[type=password], select, textarea{
+  width: 60%;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  border: 4px solid #cbc;
+  box-sizing: border-box;
+  resize: vertical;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  cursor: pointer;
+  margin-right: 170px;
+  border-radius: 20px;
+  margin-top: 20px;
+  float: center;
+}
+
+.addnotes{
+    position:fixed;
+    text-align: center;
+    border-radius: 20px;
+    top: 36%;
+    left: 50%;
+    width:55em;
+    height:28em;
+    margin-top: -9em; /*set to a negative number 1/2 of your height*/
+    margin-left: -15em; /*set to a negative number 1/2 of your width*/
+    border: 1px solid #ccc;
+    background-color: #f3f3f3;
+    width: 450px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+input[type=submit]:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  background-color: #3fff35;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  cursor: pointer;
+  margin-right: 170px;
+  border-radius: 50px;
+  margin-top: 20px;
+  float: center;
+}
+
+input[type=reset] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  margin-top: 20px;
+  border-radius: 20px;
+    margin-right: 50px;
+  cursor: pointer;
+  float: left ;
+  margin-left: 50px;
+  position: absolute;
+}
+input[type=reset]:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  background-color: #3fff35;
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  margin-top: 20px;
+  border-radius: 20px;
+    margin-right: 50px;
+  cursor: pointer;
+  float: left ;
+  margin-left: 50px;
+  position: absolute;
+}
+.error{
+    font-size: 20px;
+    text-shadow: 2px;
+    font-family: monospace;
+    background-color: #ed3e3b;
+}
+</style>
+<script>
+function passfun() {
+  var x = document.getElementById("pass").value;
+  var y = document.getElementById('id').value;
+  if(x.length < 6){
+  document.getElementById("demo").innerHTML = "password must contain 6 characters";
+  }
+  else {
+     document.getElementById("demo").innerHTML = "";
+  }
+  if(x==y){
+      document.getElementById("demo").innerHTML = "Password must be different from userId";
+  }
+  else {
+     document.getElementById("demo").innerHTML = "";
+  }
+  re = /[0-9]/;
+  if(!re.test(x)) {
+      document.getElementById("demo").innerHTML = "Password must contain atleast one number";
+  }
+  else {
+     document.getElementById("demo").innerHTML = "";
+  }
+}
+</script>
+</head>
+  <body>
+   {% extends "layout.html" %}
+   {% block content %}
+   <center>
+   <div class="addnotes" id="addnotes" >
+     <h1 >Sign_up</h1>
+     <form action = "http://localhost:5000/addaccount/" method = "POST" autocomplete="off">
+         <p>USER_ID <br><input type = "text" id="id" name = "id" /></p>
+         <p>Password <br><input type = "password" id="pass" name = "password" placeholder="password" oninput="passfun()" autocomplete="off"/></p>
+         <p id="demo"></p>
+         <p>Confirm Password<br><input type="password" id="confirm" placeholder="Confirm Password" name="confirm_password" required></p>
+         <p><input type="reset" value="reset" /></p>
+         <p><input type = "submit" value = "sign_up" /></p>
+      </form>
+      <a href="{{ url_for('.log_in') }}">Already have an account!</a>
+      {% if error %}
+        <p class="error">{{ error }}</p>
+      {% endif %}
+   </div>
+</center>
+ {% endblock %}
+  </body>
+</html>
